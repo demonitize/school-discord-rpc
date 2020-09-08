@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>Discord RPC</title>
+		<script src="/client.js"></script>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<form action="/discord">
+			<input type="radio" id="CNN10" value="CNN10" name="status">
+			<label for="CNN10">CNN 10</label>
+			<input type="radio" id="ENGLISH" value="ENGLISH" name="status">
+			<label for="ENGLISH">ENGLISH</label>
+			<input type="radio" id="SCIENCE" value="SCIENCE" name="status">
+			<label for="SCIENCE">SCIENCE</label>
+			<input type="radio" id="PE" value="PE" name="status">
+			<label for="PE">PE</label>
+			<input type="radio" id="MATH" value="MATH" name="status">
+			<label for="MATH">MATH</label>
+			<input type="radio" id="OTHER" value="OTHER" name="status">
+			<label for="OTHER">OTHER/CUSTOM</label>
+			<br>
+			<input type="text" maxlength="64" id="CUSTOM" placeholder="Type your custom status here." name="custom">
+			<label for="CUSTOM">CUSTOM STATUS</label>
+			<br>
+			<input type="submit" value="Set status">
+			<input type="reset" value="Reset Status">
+			<hr>
+			<input type="datetime-local" id="ENDTIME" name="timestamp">
+			<label for="ENDTIME">End Timestamp</label>
+		</form>
+	</body>
+</html>
