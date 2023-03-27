@@ -3,21 +3,64 @@ const discord_rpc = require('discord-rich-presence')('1088814016035561532');
 const fs = require('fs');
 const results = [];
 
+// TODO: Suffix not class
 const beautified_lesson_names = {
-  "wobi": "Meetup",
-  "de": "German",
-  "ge": "History",
-  "ma": "Math",
-  "Mittag": "Lunch",
-  "bio": "Biology",
-  "pb": "Political Science",
-  "reli": "Religion🔫",
-  "eng": "English",
-  "phy": "Physics",
-  "ku": "Art",
-  "semi": "Seminar Course",
-  "sp": "Sport",
-  "pause": "Break",
+  "wobi": {
+    "name": "Meetup",
+    "class": false
+  },
+  "de": {
+    "name": "German",
+    "class": true
+  },
+  "ge": {
+    "name": "History",
+    "class": true
+  },
+  "ma": {
+    "name": "Math",
+    "class": true
+  },
+  "Mittag": {
+    "name": "Lunch",
+    "class": false
+  },
+  "bio": {
+    "name": "Biology",
+    "class": true
+  },
+  "pb": {
+    "name": "Political Science",
+    "class": true
+  },
+  "reli": {
+    "name": "Religion",
+    "class": true
+  },
+  "eng": {
+    "name": "English",
+    "class": true
+  },
+  "phy": {
+    "name": "Physics",
+    "class": true
+  },
+  "ku": {
+    "name": "Art",
+    "class": true
+  },
+  "semi": {
+    "name": "Seminar Course",
+    "class": false
+  },
+  "sp": {
+    "name": "Sport",
+    "class": false
+  },
+  "pause": {
+    "name": "Break",
+    "class": false
+  }
 }
 
 function updatePresence() {
@@ -46,18 +89,22 @@ function updatePresence() {
 
             let current_status = "In school";
             let current_lesson = results[i][day_name];
+            let current_lesson_beautified = current_lesson;
 
             if (current_lesson && beautified_lesson_names[current_lesson]) {
-              current_lesson = beautified_lesson_names[current_lesson];
+              current_lesson_beautified = beautified_lesson_names[current_lesson]["name"];
+              if (beautified_lesson_names[current_lesson]["class"]) {
+                current_lesson_beautified = current_lesson_beautified + " Class"
+              }
             }
 
-            if (!current_lesson) {
+            if (!current_lesson_beautified) {
               current_status = "Not in school";
-              current_lesson = "No lessons today";
+              current_lesson_beautified = "No lessons today";
             }
 
             discord_rpc.updatePresence({
-              state: "Currently in " + current_lesson,
+              state: "Currently in " + current_lesson_beautified,
               details: current_status,
               startTimestamp: lesson_start_time,
               endTimestamp: lesson_end_time,
