@@ -81,15 +81,22 @@ function updatePresence() {
         if (hour_o > hour_n1 || (hour_o === hour_n1 && minute_o >= minute_n1)) {
           if (hour_o < hour_n2 || (hour_o === hour_n2 && minute_o <= minute_n2)) {
             lesson_found = true;
+            let current_status = "In school";
+            let current_lesson = results[i][day_name];
+            let current_lesson_beautified = current_lesson;
+
             const lesson_start_time = new Date();
             lesson_start_time.setHours(hour_n1, minute_n1, 0, 0);
 
             const lesson_end_time = new Date();
-            lesson_end_time.setHours(hour_n2, minute_n2, 0, 0);
+            if (current_lesson == results[i + 1][day_name]) {
+              const time_n3 = results[i + 1].time.split('-')
+              const [hour_n3, minute_n3] = time_n3[1].split(':').map((x) => parseInt(x));
 
-            let current_status = "In school";
-            let current_lesson = results[i][day_name];
-            let current_lesson_beautified = current_lesson;
+              lesson_end_time.setHours(hour_n3, minute_n3, 0, 0);
+            } else {
+              lesson_end_time.setHours(hour_n2, minute_n2, 0, 0);
+            }
 
             if (current_lesson && beautified_lesson_names[current_lesson]) {
               current_lesson_beautified = beautified_lesson_names[current_lesson]["name"];
